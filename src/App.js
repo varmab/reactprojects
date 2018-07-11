@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Counter from './Counter'
 import Todos from './Todos'
+import Users from './Users'
 
 import {
   BrowserRouter as Router,
@@ -23,6 +24,11 @@ const TodosPage=()=>{
   return <Todos/>
 }
 
+const UsersPage=()=>{
+  return <Users/>
+}
+
+
 class App extends Component {
   render() {
     return (
@@ -31,6 +37,7 @@ class App extends Component {
                     <li><a href="/">Home</a></li>
                     <li><a href="/counter">Counter</a></li>
                     <li><a href="/todos">Todos</a></li>
+                    <li><a href="/users">Users</a></li>
                 </ul>
             
               <Router>
@@ -38,6 +45,7 @@ class App extends Component {
                     <Route exact path="/" component={HomePage}/>
                     <Route  path="/counter" component={CounterPage}/>
                     <Route  path="/todos" component={TodosPage}/>
+                    <Route  path="/users" component={UsersPage}/>
                   </Switch>
               </Router>
       </div>
