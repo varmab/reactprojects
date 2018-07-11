@@ -11,13 +11,30 @@ class Users extends Component{
         }
 
         this.getUsers=this.getUsers.bind(this);
+        this.searchUsers=this.searchUsers.bind(this);
     }
 
-    getUsers(){
+    searchUsers(){
+        var term=this.refs.search.value;
+        console.log(term)
+        this.getUsers(term);
+    }
+
+    getUsers(searchTerm){
+        console.log(searchTerm)
         fetch("https://jsonplaceholder.typicode.com/users")
         .then((response)=>response.json())
         .then((users)=>{
             console.log(users);
+
+            if(searchTerm){
+                users=users.filter((user)=>{
+                    console.log(user.name.indexOf(searchTerm))
+                    return user.name.indexOf(searchTerm)!=-1;
+                })
+                console.log(users);
+            }
+
             this.setState({
                 users:users,
                 loaded:true
@@ -40,11 +57,12 @@ class Users extends Component{
         if(this.state.error){
             return(<div>Sorry.. We are unable to show you data</div>)
         }
-        
+
         if(this.state.loaded){
             return(
                 <div>
                     <h1>Users</h1>
+                    <input type="text" ref="search"/><button onClick={this.searchUsers}>Search</button>
                     <ul>
                         {
                             this.state.users.map((user)=>{
